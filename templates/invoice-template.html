@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Invoice</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            color: #333;
+            background-color: #fff;
+        }
+        .container {
+            width: 800px;
+            margin: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        .company-info {
+            text-align: left;
+        }
+        .company-info h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .company-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .logo-section {
+            text-align: right;
+        }
+        .logo {
+            max-width: 150px;
+        }
+        .invoice-title {
+            background-color: #4a4a4a;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .document-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .document-info .right {
+            text-align: right;
+        }
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .items-table th {
+            background-color: #666;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+        .items-table td {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            text-align: right;
+        }
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .totals-table {
+            width: 300px;
+        }
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .total-line span {
+            font-weight: bold;
+        }
+        .final-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 2px solid #333;
+            margin-top: 10px;
+        }
+        .final-total span {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="company-info">
+                <h2>{{SHOP_NAME}}</h2>
+                <p>{{SHOP_ADDRESS}}</p>
+                <p>Tel: {{SHOP_PHONE}}</p>
+                <p>{{SHOP_EMAIL}}</p>
+                <p>Registration: {{SHOP_REGISTRATION_1}}</p>
+                <p>Registration: {{SHOP_REGISTRATION_2}}</p>
+            </div>
+            <div class="logo-section">
+                <img src="{{SHOP_LOGO_URL}}" alt="Logo" class="logo">
+            </div>
+        </div>
+        
+        <!-- Invoice Title Bar -->
+        <div class="invoice-title">
+            CASH INVOICE #{{INVOICE_NUMBER}}
+        </div>
+        
+        <!-- Document Information -->
+        <div class="document-info">
+            <div class="left">Page No. {{PAGE_NUMBER}} / VAT No. {{VAT_NUMBER}}</div>
+            <div class="right">
+                Document date: {{INVOICE_DATE}}<br>
+                User: {{USER_NAME}}<br>
+                Receipt: {{RECEIPT_INFO}}<br>
+                Project No: {{PROJECT_NUMBER}}
+            </div>
+        </div>
+        
+        <!-- Items Table with Greek Headers -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Κωδικός</th>
+                    <th>Περιγραφή</th>
+                    <th>Ποσότητα</th>
+                    <th>Τιμή</th>
+                    <th>Μονάδα</th>
+                    <th>Disc%</th>
+                    <th>Καθαρά</th>
+                    <th>ΦΠΑ</th>
+                    <th>Σύνολο</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each items}}
+                <tr>
+                    <td>{{code}}</td>
+                    <td style="text-align: left;">{{description}}</td>
+                    <td>{{quantity}}</td>
+                    <td>{{price}}</td>
+                    <td>{{unit}}</td>
+                    <td>{{discount}}</td>
+                    <td>{{net_amount}}</td>
+                    <td>{{vat_amount}}</td>
+                    <td>{{total_amount}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        
+        <!-- Totals Section -->
+        <div class="totals-section">
+            <div class="totals-table">
+                <div class="total-line">
+                    <span>Καθαρή Αξία:</span>
+                    <span>€{{NET_TOTAL}}</span>
+                </div>
+                <div class="total-line">
+                    <span>ΦΠΑ:</span>
+                    <span>€{{VAT_TOTAL}}</span>
+                </div>
+                <div class="final-total">
+                    <span>ΓΕΝΙΚΟ ΣΥΝΟΛΟ:</span>
+                    <span>€{{GRAND_TOTAL}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
